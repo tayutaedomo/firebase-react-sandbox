@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { VFC } from 'react';
+import Home from './home/Home';
 
-function App() {
-  return <div>App</div>;
-}
+const App: VFC = () => {
+  return (
+    <>
+      <Home />
+    </>
+  );
+};
 
 export default App;
