@@ -1,10 +1,14 @@
 import React, { VFC } from 'react';
+
+import DefaultLayout from './layout/DefaultLayout';
 import Home from './home/Home';
 
 const App: VFC = () => {
   return (
     <>
-      <Home />
+      <DefaultLayout>
+        <Home />
+      </DefaultLayout>
     </>
   );
 };
