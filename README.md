@@ -33,3 +33,30 @@ $ yarn test
 $ yarn build
 $ yarn eject
 ```
+
+## Firebase
+
+### Generate env file
+
+Create the config file.
+
+```
+$ cd firebase-react-sandbox
+$ touch .firebase-config.js
+$ vim .firebase-config.js
+module.exports = {
+  apiKey: '',
+  authDomain: '',
+  databaseURL: '',
+  projectId: '',
+  storageBucket: '',
+  messagingSenderId: '',
+  appId: '',
+};
+```
+
+Generate .env file with the following command.
+
+```
+$ bin/generate_env_file
+```
