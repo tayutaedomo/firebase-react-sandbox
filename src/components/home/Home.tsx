@@ -7,14 +7,32 @@ const Home: VFC = () => {
   return (
     <>
       <Wrap p={{ base: 2, md: 5 }}>
-        {[1, 2].map((index) => (
-          <WrapItem key={index} mx="auto">
-            <HomeCard headline="Headline" content="Content" to={`/${index}`} />
+        {cards.map((card) => (
+          <WrapItem key={card.to} mx="auto">
+            <HomeCard
+              headline={card.headline}
+              content={card.content}
+              to={card.to}
+            />
           </WrapItem>
         ))}
       </Wrap>
     </>
   );
 };
+
+type Card = {
+  headline: string;
+  content: string;
+  to: string;
+};
+
+const cards: Array<Card> = [
+  {
+    headline: 'Functions',
+    content: 'Try firebase functions and Cloud Functions',
+    to: '/functions',
+  },
+];
 
 export default Home;

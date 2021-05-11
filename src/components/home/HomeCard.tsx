@@ -2,6 +2,7 @@ import React, { ReactNode, VFC } from 'react';
 import { Box, Heading, Stack, Text } from '@chakra-ui/layout';
 import { useColorModeValue } from '@chakra-ui/color-mode';
 import { Button } from '@chakra-ui/button';
+import { useHistory } from 'react-router';
 
 type Props = {
   headline: string;
@@ -11,6 +12,11 @@ type Props = {
 
 const HomeCard: VFC<Props> = (props) => {
   const { headline, content, to } = props;
+  const history = useHistory();
+
+  const handleClick = (to: string) => {
+    history.push(to);
+  };
 
   return (
     <Box
@@ -42,8 +48,9 @@ const HomeCard: VFC<Props> = (props) => {
           transform: 'translateY(-2px)',
           boxShadow: 'lg',
         }}
+        onClick={() => handleClick(to)}
       >
-        View {to}
+        View
       </Button>
     </Box>
   );
