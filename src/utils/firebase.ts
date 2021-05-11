@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/functions';
 
 const {
   REACT_APP_FIREBASE_API_KEY,
@@ -19,7 +20,16 @@ const firebaseConfig = {
   appId: REACT_APP_FIREBASE_APP_ID,
 };
 
-firebase.initializeApp(firebaseConfig);
+if (firebase.apps.length === 0) {
+  // const app = firebase.initializeApp(firebaseConfig);
+  firebase.initializeApp(firebaseConfig);
+
+  if (process.env.NODE_ENV === 'development') {
+    // app.functions().useEmulator('localhost', 5001);
+    firebase.functions().useEmulator('localhost', 5001);
+    console.log('useEmulator');
+  }
+}
 
 const auth = firebase.auth();
 
@@ -28,6 +38,30 @@ export const signInAnonymously = () => {
     .signInAnonymously()
     .then(() => {
       console.log('Signed in as anonymous.');
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+const functions = firebase.functions();
+const echoUs = functions.httpsCallable('firebase_echo_us');
+const echoAsia = functions.httpsCallable('firebase_echo_asia');
+
+export const callEchoUs = async () => {
+  await echoUs({ message: 'abc123' })
+    .then((result) => {
+      console.log('echo result:', result);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+export const callEchoAsia = async () => {
+  await echoAsia({ message: 'abc123' })
+    .then((result) => {
+      console.log('echo result:', result);
     })
     .catch((err) => {
       console.error(err);
