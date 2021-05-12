@@ -26,8 +26,8 @@ if (firebase.apps.length === 0) {
 
   if (process.env.NODE_ENV === 'development') {
     // app.functions().useEmulator('localhost', 5001);
-    firebase.functions().useEmulator('localhost', 5001);
-    console.log('useEmulator');
+    // firebase.functions().useEmulator('localhost', 5001);
+    // console.log('useEmulator');
   }
 }
 
@@ -45,11 +45,11 @@ export const signInAnonymously = () => {
 };
 
 const functions = firebase.functions();
-const echoUs = functions.httpsCallable('firebase_echo_us');
-const echoAsia = functions.httpsCallable('firebase_echo_asia');
 
 export const callEchoUs = async () => {
-  await echoUs({ message: 'abc123' })
+  const func = functions.httpsCallable('firebase_echo_us');
+
+  await func({ message: 'abc123' })
     .then((result) => {
       console.log('echo result:', result);
     })
@@ -59,9 +59,23 @@ export const callEchoUs = async () => {
 };
 
 export const callEchoAsia = async () => {
-  await echoAsia({ message: 'abc123' })
+  const func = functions.httpsCallable('firebase_echo_asia');
+
+  await func({ message: 'abc123' })
     .then((result) => {
       console.log('echo result:', result);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+export const predictCategory = async () => {
+  const func = functions.httpsCallable('predict_category');
+
+  await func({})
+    .then((result) => {
+      console.log('predict_category result:', result);
     })
     .catch((err) => {
       console.error(err);
